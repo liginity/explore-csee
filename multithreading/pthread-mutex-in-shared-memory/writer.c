@@ -34,8 +34,12 @@ int main() {
         pthread_mutex_lock(&shared_data->mutex);
         snprintf(shared_data->message, sizeof(shared_data->message), "Message %d from writer", i);
         printf("Writer: Wrote '%s'\n", shared_data->message);
-        pthread_mutex_unlock(&shared_data->mutex);
+        fflush(stdout);
+
         sleep(1);
+        pthread_mutex_unlock(&shared_data->mutex);
+
+        sleep(2);
     }
 
     // Cleanup

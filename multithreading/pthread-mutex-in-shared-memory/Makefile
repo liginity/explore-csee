@@ -3,13 +3,13 @@ CC = gcc
 CFLAGS = -Wall -pthread -g
 
 # Target programs
-TARGETS = writer reader
+TARGETS = writer.out reader.out
 
 # Default rule: Build all targets
 all: $(TARGETS)
 
 # Generic build rule
-%: %.c common.h
+%.out: %.c common.h
 	$(CC) $(CFLAGS) -o $@ $<
 
 # Clean rule

@@ -22,8 +22,12 @@ int main() {
     for (int i = 0; i < 5; i++) {
         pthread_mutex_lock(&shared_data->mutex);
         printf("Reader: Read '%s'\n", shared_data->message);
-        pthread_mutex_unlock(&shared_data->mutex);
+        fflush(stdout);
+
         sleep(1);
+        pthread_mutex_unlock(&shared_data->mutex);
+
+        sleep(2);
     }
 
     // Cleanup
