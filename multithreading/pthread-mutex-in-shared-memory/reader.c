@@ -21,6 +21,8 @@ int main() {
     // Read data with mutex protection
     for (int i = 0; i < 5; i++) {
         pthread_mutex_lock(&shared_data->mutex);
+        int time_now = time(NULL) - shared_data->start_time;
+        printf("(%d s) ", time_now);
         printf("Reader: Read '%s'\n", shared_data->message);
         fflush(stdout);
 
@@ -32,6 +34,10 @@ int main() {
 
     const int N = 1000 * 1000;
     for (int i = 0; i < N; ++i) {
+        if (i == N / 2) {
+            printf("reader (in loop): count = %d\n", shared_data->count);
+            sleep(1);
+        }
         pthread_mutex_lock(&shared_data->mutex);
         ++shared_data->count;
         pthread_mutex_unlock(&shared_data->mutex);
