@@ -36,11 +36,19 @@ int main() {
         printf("Writer: Wrote '%s'\n", shared_data->message);
         fflush(stdout);
 
-        sleep(1);
+        sleep(2);
         pthread_mutex_unlock(&shared_data->mutex);
 
-        sleep(2);
+        sleep(1);
     }
+
+    const int N = 1000 * 1000;
+    for (int i = 0; i < N; ++i) {
+        pthread_mutex_lock(&shared_data->mutex);
+        ++shared_data->count;
+        pthread_mutex_unlock(&shared_data->mutex);
+    }
+    printf("writer: count = %d\n", shared_data->count);
 
     // Cleanup
     pthread_mutex_destroy(&shared_data->mutex);

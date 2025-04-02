@@ -15,6 +15,7 @@
 typedef struct {
     pthread_mutex_t mutex;
     char message[256];
+    int count;
 } shared_data_t;
 
 #endif
